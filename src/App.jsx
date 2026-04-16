@@ -3,9 +3,9 @@ import { useState, useEffect, createContext, useContext } from "react";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import toast, { Toaster } from "react-hot-toast";
 import { CiAlarmOn } from "react-icons/ci";
-import { RiHome2Line } from "react-icons/ri";
+import { RiHome2Line, RiMessage2Line, RiVideoLine } from "react-icons/ri";
 import { ImStatsDots } from "react-icons/im";
-import { FaPlus } from "react-icons/fa";
+import { FaDotCircle, FaPhoneAlt, FaPlus } from "react-icons/fa";
 import { FaSquareFacebook, FaSquareInstagram, FaSquareXTwitter } from "react-icons/fa6";
 
 // ---------------- CONTEXT (GLOBAL STATE) ----------------
@@ -17,9 +17,14 @@ const AppProvider = ({ children }) => {
 
   
 const addInteraction = (friendName, type) => {
+  
   const newItem = {
     title: `${type} with ${friendName}`,
-    date: new Date().toLocaleDateString(),
+    date: new Date().toLocaleDateString("en-US", {
+  day: "numeric",
+  month: "long",
+  year: "numeric"
+}),
     type
   };
 
@@ -395,8 +400,8 @@ const FriendDetails = ()=>{
       <div className="bg-white p-6 rounded-xl shadow">
         <h2 className="text-xl mb-4">Quick Check-in</h2>
         <div className="flex gap-3 mb-6">
-          <button onClick={()=>addInteraction(friend.name,"Call")} className="bg-green-700 text-white px-4 py-2 rounded">Call</button>
-          <button onClick={()=>addInteraction(friend.name,"Text")} className="bg-green-700 text-white px-4 py-2 rounded">Text</button>
+          <button onClick={()=>addInteraction(friend.name,"Call")} className="bg-green-700 text-white px-4 py-2 rounded">Text</button>
+          <button onClick={()=>addInteraction(friend.name,"Text")} className="bg-green-700 text-white px-4 py-2 rounded">Call</button>
           <button onClick={()=>addInteraction(friend.name,"Video")} className="bg-green-700 text-white px-4 py-2 rounded">Video</button>
         </div>
       </div>
@@ -417,32 +422,59 @@ const FriendDetails = ()=>{
 
 // ---- Timeline ----
 
+
+const typeIcon = {
+  Call: <FaPhoneAlt />,
+  Text: <RiMessage2Line />,
+  Video: <RiVideoLine />
+};
 const Timeline = ()=>{
   const { timeline } = useApp();
   const [filter,setFilter] = useState("All");
   const filtered = filter === "All" ? timeline : timeline.filter(t=>t.type===filter);
 
   return (
-    <div className="p-10">
+   <>
+
+   <div className="w-9/12 mx-auto">
+    <h1 className="font-bold text-3xl py-8">Timeline</h1>
+   </div>
+
+    <div className=" w-9/12 mx-auto">
       <select onChange={e=>setFilter(e.target.value)} className="mb-6 border p-2 rounded">
-        <option>All</option>
-        <option>Call</option>
+        <option>All timeline</option>
         <option>Text</option>
+        <option>Call</option>
         <option>Video</option>
       </select>
 
       {filtered.length===0 && <p>No activity yet</p>}
-      {filtered.map((item,i)=> (
-        <div key={i} className="bg-white p-4 rounded shadow mb-3 flex justify-between">
-          <span>{item.title}</span>
-          <span>{item.date}</span>
-        </div>
-      ))}
+     {filtered.map((item, i) => (
+  <div key={i} className="bg-white p-4 rounded shadow mb-3 flex justify-between">
+    
+    <div className="flex items-center">
+      
+      <div className="mx-4 text-lg">
+        {typeIcon[item.type]}
+      </div>
+
+      <div className="flex flex-col">
+        <span>{item.title}</span>
+        <span className="text-sm text-gray-500">{item.date}</span>
+      </div>
+
     </div>
+
+  </div>
+))}
+    </div>
+   </>
   );
 }
 
 // ---- Stats ----
+
+const COLORS = ["#f59e0b",  "#22c55e", "#ef4444"];
 const Stats = ()=>{
   const { timeline } = useApp();
 
@@ -454,14 +486,35 @@ const Stats = ()=>{
   }));
 
   return (
-    <div className="flex justify-center p-10">
-      <PieChart width={400} height={400}>
-        <Pie data={data} dataKey="value" outerRadius={150} label>
-          {data.map((entry, index) => <Cell key={index} />)}
-        </Pie>
-        <Tooltip />
-      </PieChart>
+   <>
+   <div className="w-9/12 mx-auto">
+    <h1 className="font-bold text-3xl py-8">Friendship Analytics</h1>
+   </div>
+
+    <div className=" p-10 shadow-sm w-9/12 mx-auto">
+      <p className="text-left p-10">By Interaction Type</p>
+
+     <PieChart width={400} height={400} className="mb-8 mx-auto">
+  <Pie data={data} dataKey="value"    innerRadius="80%"
+        outerRadius="100%"
+        // Corner radius is the rounded edge of each pie slice
+        cornerRadius="5%" >
+    {data.map((entry, index) => (
+      <Cell key={index} fill={COLORS[index % COLORS.length]} />
+    ))}
+  </Pie>
+
+  <Tooltip />
+</PieChart>
+ <div className="flex justify-center gap-4 ">
+  <div className="flex place-items-center px-2 gap-2"><FaDotCircle className="text-[#22c55e]"/>Text</div>
+  <div className="flex place-items-center px-2 gap-2"><FaDotCircle className="text-[#f59e0b]"/>Call</div>
+  <div className="flex place-items-center px-2 gap-2"><FaDotCircle className="text-[#ef4444]"/>Video</div>
+
+</div>
     </div>
+   
+</>
   );
 }
 
