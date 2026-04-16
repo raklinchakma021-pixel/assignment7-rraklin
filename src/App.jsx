@@ -6,6 +6,7 @@ import { CiAlarmOn } from "react-icons/ci";
 import { RiHome2Line } from "react-icons/ri";
 import { ImStatsDots } from "react-icons/im";
 import { FaPlus } from "react-icons/fa";
+import { FaSquareFacebook, FaSquareInstagram, FaSquareXTwitter } from "react-icons/fa6";
 
 // ---------------- CONTEXT (GLOBAL STATE) ----------------
 const AppContext = createContext();
@@ -289,10 +290,32 @@ const DataShow = () => (
 
 // ---- Footer ----
 const Footer = () => (
-  <div className="bg-green-900 text-white text-center p-10 mt-10">
+  <>
+    <div className="bg-green-900 text-white text-center p-10 mt-10">
     <h1 className="text-4xl font-bold">KeenKeeper</h1>
-    <p className="opacity-70">Keep your friendships alive</p>
+    <p className="opacity-70">Your personal shelf of meaningful connections. Browse, tend, and nurture the relationships that matter most.</p>
   </div>
+<div className="bg-green-900 text-white font-bold text-center">
+  <h3 className="">Social Links</h3>
+  <div className="flex justify-center gap-4 text-2xl py-5">
+    <a href="" className=""><FaSquareInstagram className=""/></a>
+    <a href=""><FaSquareFacebook/></a>
+    <a href=""><FaSquareXTwitter/></a>
+  </div>
+</div>
+
+<div className="flex justify-between bg-green-900 text-gray-300 py-10 px-7">
+  <div>
+     <span>© 2026 KeenKeeper. All rights reserved.</span>
+  </div>
+  <div className="flex gap-4">
+    <a href="">Privacy Policy</a>
+    <a href="">Terms Of Service</a>
+    <a href="">Cookies</a>
+  </div>
+</div>
+  </>
+
 );
 
 // ---- Friend Card ----
@@ -314,18 +337,18 @@ const FriendCard = ({f})=> {
     <NavLink to={`/friend/${f.id}`} className="bg-white p-5 rounded-xl shadow block text-center">
       <img src={f.picture} className="w-16 h-16 rounded-full mx-auto"/>
       <h3 className="font-bold mt-2">{f.name}</h3>
-      <p className="text-sm text-gray-500">{f.days_since_contact} days ago</p>
+      <p className="text-sm text-gray-500 ">{f.days_since_contact}d ago</p>
 
       <div className="flex justify-center gap-2 mt-2 flex-wrap">
         {(f.tags || []).map(tag => (
-          <span key={tag} className={`text-xs px-2 py-1 rounded ${tagColor[tag] || "bg-gray-200"}`}>
+          <span key={tag} className={`text-xs px-2 capitalize py-1 rounded ${tagColor[tag] || "bg-gray-200"}`}>
             {tag}
           </span>
         ))}
       </div>
 
       <div className="mt-2">
-        <span className={`text-xs px-2 py-1 rounded ${statusColor[f.status]}`}>
+        <span className={`text-xs px-2 py-1 capitalize rounded ${statusColor[f.status]}`}>
           {f.status}
         </span>
       </div>
@@ -343,6 +366,8 @@ const SmallHeading =() => (
 const Home = () => (
 
   <div className="p-10">
+       <Banner/>
+        <DataShow/>
       <SmallHeading/>
     <div className="grid md:grid-cols-4 gap-6">
       {friendsData.map(f => <FriendCard key={f.id} f={f} />)}
@@ -446,8 +471,7 @@ export default function App(){
     <AppProvider>
       <BrowserRouter>
         <Navbar />
-        <Banner/>
-        <DataShow/>
+     
         <Toaster />
         <Routes>
           <Route path="/" element={<Home/>}/>
