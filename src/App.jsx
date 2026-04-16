@@ -5,8 +5,9 @@ import toast, { Toaster } from "react-hot-toast";
 import { CiAlarmOn } from "react-icons/ci";
 import { RiHome2Line, RiMessage2Line, RiVideoLine } from "react-icons/ri";
 import { ImStatsDots } from "react-icons/im";
-import { FaDotCircle, FaPhoneAlt, FaPlus } from "react-icons/fa";
+import { FaArchive, FaDotCircle, FaPhoneAlt, FaPlus } from "react-icons/fa";
 import { FaSquareFacebook, FaSquareInstagram, FaSquareXTwitter } from "react-icons/fa6";
+import { MdDeleteForever } from "react-icons/md";
 
 // ---------------- CONTEXT (GLOBAL STATE) ----------------
 const AppContext = createContext();
@@ -388,16 +389,98 @@ const FriendDetails = ()=>{
 
   const history = timeline.filter(t=>t.title.includes(friend.name));
 
+  const statusColor = {
+    overdue: "bg-red-200 text-red-800",
+    "on-track": "bg-green-200 text-green-800",
+    "almost due": "bg-yellow-200 text-yellow-800"
+  };
+   const tagColor = {
+    family: "bg-pink-200 text-pink-800",
+    travel: "bg-blue-200 text-blue-800",
+    work: "bg-purple-200 text-purple-800",
+    college: "bg-orange-200 text-orange-800"
+  };
+
+  
   return (
-    <div className="p-10 grid md:grid-cols-2 gap-6">
-      <div className="bg-white p-6 rounded-xl shadow">
+    <div className="p-10 grid md:grid-cols-6 gap-6">
+     <div className="col-span-2">
+       <div className="bg-white p-6 rounded-xl shadow">
         <img src={friend.picture} className="w-20 rounded-full"/>
         <h2 className="text-2xl font-bold">{friend.name}</h2>
+
+         <div className="mt-2">
+        <span className={`text-xs px-2 py-1 capitalize rounded ${statusColor[friend.status]}`}>
+          {friend.status}
+        </span>
+      </div>
+
+       <div className="mt-2">
+        {(friend.tags || []).map(tag => (
+          <span key={tag} className={`text-xs px-2 capitalize py-1 rounded ${tagColor[tag] || "bg-gray-200"}`}>
+            {tag}
+          </span>
+        ))}
+      </div>
         <p>{friend.bio}</p>
         <p className="text-sm">{friend.email}</p>
       </div>
+      <div className="flex flex-col gap-5 ">
+        <button className="flex gap-2 items-center shadow-sm p-4"><CiAlarmOn/>Snooze 2 weeks</button>
+        <button className="flex gap-2 items-center  shadow-sm p-4"><FaArchive/>Archive</button>
+        <button className="text-red-600 flex gap-2 items-center p-4 shadow-sm"><MdDeleteForever/>Delete</button>
+      </div>
+     </div>
+      
+<div className="col-span-4">
 
-      <div className="bg-white p-6 rounded-xl shadow">
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-10">
+       
+    <div
+      
+      className="bg-white shadow rounded-xl p-6 text-center"
+    >
+    
+      <h2 className="text-3xl font-bold text-green-700">
+        {friend.days_since_contact}
+      </h2>
+      <p className="text-sm text-gray-500 mb-4">Days Since Contact</p>
+
+  
+    </div>
+  
+   
+    <div
+      
+      className="bg-white shadow rounded-xl p-6 text-center"
+    >
+    
+      <h2 className="text-3xl font-bold text-green-700">
+        {friend.goal}
+      </h2>
+      <p className="text-sm text-gray-500 mb-4">Goal (Days)</p>
+
+  
+    </div>
+    <div
+      
+      className="bg-white shadow rounded-xl p-6 text-center"
+    >
+    
+      <h2 className="text-3xl font-bold text-green-700">
+       {new Date(friend.next_due_date).toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  })}
+      </h2>
+      <p className="text-sm text-gray-500 mb-4">Next Due</p>
+
+  
+    </div>
+  
+</div>
+  <div className="bg-white p-6 rounded-xl shadow">
         <h2 className="text-xl mb-4">Quick Check-in</h2>
         <div className="flex gap-3 mb-6">
           <button onClick={()=>addInteraction(friend.name,"Call")} className="bg-green-700 text-white px-4 py-2 rounded">Text</button>
@@ -410,12 +493,26 @@ const FriendDetails = ()=>{
         <h2 className="text-2xl mb-4 font-bold">Interaction History</h2>
         {history.length===0 && <p>No interactions yet</p>}
         {history.map((item,i)=> (
-          <div key={i} className="border-b py-2 flex justify-between">
-            <span>{item.title}</span>
-            <span className="text-sm text-gray-500">{item.date}</span>
-          </div>
+         <div key={i} className="bg-white p-4 rounded shadow mb-3 flex justify-between">
+    
+    <div className="flex items-center">
+      
+      <div className="mx-4 text-lg">
+        {typeIcon[item.type]}
+      </div>
+
+      <div className="flex flex-col">
+        <span>{item.title}</span>
+        <span className="text-sm text-gray-500">{item.date}</span>
+      </div>
+
+    </div>
+
+  </div>
         ))}
       </div>
+</div>
+
     </div>
   );
 }
