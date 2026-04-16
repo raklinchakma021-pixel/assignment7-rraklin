@@ -403,7 +403,7 @@ const FriendDetails = ()=>{
 
   
   return (
-    <div className="p-10 grid md:grid-cols-6 gap-6">
+    <div className="p-10 grid md:grid-cols-6 gap-6 w-9/12 mx-auto">
      <div className="col-span-2">
        <div className="bg-white p-6 rounded-xl shadow">
         <img src={friend.picture} className="w-20 rounded-full"/>
@@ -434,14 +434,13 @@ const FriendDetails = ()=>{
       
 <div className="col-span-4">
 
-  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-10">
-       
-    <div
+  <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-4">
+        <div
       
       className="bg-white shadow rounded-xl p-6 text-center"
     >
     
-      <h2 className="text-3xl font-bold text-green-700">
+      <h2 className="text-3xl font-bold text-gray-700">
         {friend.days_since_contact}
       </h2>
       <p className="text-sm text-gray-500 mb-4">Days Since Contact</p>
@@ -455,19 +454,21 @@ const FriendDetails = ()=>{
       className="bg-white shadow rounded-xl p-6 text-center"
     >
     
-      <h2 className="text-3xl font-bold text-green-700">
+      <h2 className="text-3xl font-bold text-gray-700">
         {friend.goal}
       </h2>
       <p className="text-sm text-gray-500 mb-4">Goal (Days)</p>
 
   
     </div>
+
+    
     <div
       
       className="bg-white shadow rounded-xl p-6 text-center"
     >
     
-      <h2 className="text-3xl font-bold text-green-700">
+      <h2 className="text-3xl font-bold text-gray-700">
        {new Date(friend.next_due_date).toLocaleDateString("en-US", {
     day: "numeric",
     month: "long",
@@ -478,19 +479,36 @@ const FriendDetails = ()=>{
 
   
     </div>
+   
   
 </div>
+
+<div className="bg-white shadow rounded-xl p-6 mb-5">
+  <div className="flex justify-between items-center">
+  <div>
+    <h1>Relationship Goal</h1>
+    <p>Connect Every <strong>{friend.goal} days</strong> </p>
+  </div>
+  <div>
+    <button className="btn bg-gray-200 rounded-sm p-2 ">Edit</button>
+  </div>
+</div>
+</div>
+
   <div className="bg-white p-6 rounded-xl shadow">
         <h2 className="text-xl mb-4">Quick Check-in</h2>
-        <div className="flex gap-3 mb-6">
-          <button onClick={()=>addInteraction(friend.name,"Call")} className="bg-green-700 text-white px-4 py-2 rounded">Text</button>
-          <button onClick={()=>addInteraction(friend.name,"Text")} className="bg-green-700 text-white px-4 py-2 rounded">Call</button>
-          <button onClick={()=>addInteraction(friend.name,"Video")} className="bg-green-700 text-white px-4 py-2 rounded">Video</button>
+        <div className="flex gap-3 mb-6 text-center text-l">
+          <button onClick={()=>addInteraction(friend.name,"Call")} className=" text-black px-10 py-3 rounded bg-gray-100"><FaPhoneAlt/>Call</button>
+          <button onClick={()=>addInteraction(friend.name,"Text")} className=" text-black px-10 py-3 rounded bg-gray-100"><RiMessage2Line/>Text</button>
+          <button onClick={()=>addInteraction(friend.name,"Video")} className=" text-black px-10 py-3 rounded bg-gray-100"><RiVideoLine/>Video</button>
         </div>
       </div>
 
       <div className="md:col-span-2 bg-white p-6 rounded-xl shadow">
-        <h2 className="text-2xl mb-4 font-bold">Interaction History</h2>
+<div className="flex justify-between">
+        <h2 className="text-2xl mb-4 font-bold">Recent Interaction</h2>
+  <p className="flex items-center gap-2"><CiAlarmOn/>Full history</p>
+</div>
         {history.length===0 && <p>No interactions yet</p>}
         {history.map((item,i)=> (
          <div key={i} className="bg-white p-4 rounded shadow mb-3 flex justify-between">
