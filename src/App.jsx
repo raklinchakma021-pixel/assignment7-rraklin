@@ -14,15 +14,7 @@ const useApp = () => useContext(AppContext);
 const AppProvider = ({ children }) => {
   const [timeline, setTimeline] = useState([]); // starts EMPTY
 
-  // const addInteraction = (friendName, type) => {
-  //   const newItem = {
-  //     title: ${type} with ${friendName},
-  //     date: new Date().toLocaleDateString(),
-  //     type
-  //   };
-  //   setTimeline(prev => [newItem, ...prev]);
-  //   toast.success(${type} logged!);
-  // };
+  
 const addInteraction = (friendName, type) => {
   const newItem = {
     title: `${type} with ${friendName}`,
@@ -116,6 +108,67 @@ const Banner = () => (
     Add Friend
   </button>
 </div>
+);
+// ---- DataShow ----
+const onTrackCount = friendsData.filter(
+  friend => friend.status === "on-track"
+).length;
+
+const DataShow = () => (
+<div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-10">
+  
+    <div
+      
+      className="bg-white shadow rounded-xl p-6 text-center"
+    >
+    
+      <h2 className="text-3xl font-bold text-green-700">
+        {friendsData.length}
+      </h2>
+      <p className="text-sm text-gray-500 mb-4">Total Friends</p>
+
+  
+    </div>
+    <div
+      
+      className="bg-white shadow rounded-xl p-6 text-center"
+    >
+    
+      <h2 className="text-3xl font-bold text-green-700">
+        {onTrackCount}
+      </h2>
+      <p className="text-sm text-gray-500 mb-4">On Track</p>
+
+  
+    </div>
+    <div
+      
+      className="bg-white shadow rounded-xl p-6 text-center"
+    >
+    
+      <h2 className="text-3xl font-bold text-green-700">
+        3
+      </h2>
+      <p className="text-sm text-gray-500 mb-4">Need Attention</p>
+
+  
+    </div>
+    <div
+      
+      className="bg-white shadow rounded-xl p-6 text-center"
+    >
+    
+      <h2 className="text-3xl font-bold text-green-700">
+        12
+      </h2>
+      <p className="text-sm text-gray-500 mb-4">Interactions This Month</p>
+
+  
+    </div>
+  
+</div>
+
+
 );
 
 // ---- Footer ----
@@ -269,6 +322,7 @@ export default function App(){
       <BrowserRouter>
         <Navbar />
         <Banner/>
+        <DataShow/>
         <Toaster />
         <Routes>
           <Route path="/" element={<Home/>}/>
