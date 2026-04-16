@@ -218,8 +218,16 @@ const FriendCard = ({f})=> {
 };
 
 // ---- Home ----
+const SmallHeading =() => (
+  <div>
+    <h1 className="font-bold text-xl py-5">Your Friends</h1>
+  </div>
+)
+
 const Home = () => (
+
   <div className="p-10">
+      <SmallHeading/>
     <div className="grid md:grid-cols-4 gap-6">
       {friendsData.map(f => <FriendCard key={f.id} f={f} />)}
     </div>
@@ -267,6 +275,7 @@ const FriendDetails = ()=>{
 }
 
 // ---- Timeline ----
+
 const Timeline = ()=>{
   const { timeline } = useApp();
   const [filter,setFilter] = useState("All");
