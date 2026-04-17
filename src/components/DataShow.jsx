@@ -7,7 +7,7 @@ const onTrackCount = friendsData.filter(
 
 
 const DataShow = () => (
-<div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-10">
+<div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-4 md:p-10">
   
     <div
       

@@ -6,8 +6,8 @@ import { ImStatsDots } from "react-icons/im";
 
 const Navbar = () => {
   return (
-    <div className="bg-white shadow px-10 py-4 flex justify-between">
-      <h1 className="text-2xl font-bold text-green-700">KeenKeeper</h1>
+    <div className="bg-white shadow px-10 py-4 flex flex-col md:flex-row justify-between">
+      <h1 className="text-2xl font-bold text-green-700 mb-2 md:mb-0">KeenKeeper</h1>
 
       <div className="flex gap-4">
         <NavLink to="/" className={({isActive}) =>

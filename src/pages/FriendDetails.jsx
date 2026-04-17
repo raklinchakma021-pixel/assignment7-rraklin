@@ -37,10 +37,10 @@ const FriendDetails = () => {
 
   
   return (
-    <div className="p-10 grid md:grid-cols-6 gap-6 w-9/12 mx-auto">
-     <div className="col-span-2">
-       <div className="bg-white p-6 rounded-xl shadow">
-        <img src={friend.picture} className="w-20 rounded-full"/>
+    <div className="p-10 grid grid-cols-1 md:grid-cols-6 gap-6 w-11/12 md:w-9/12 mx-auto">
+     <div className="md:col-span-2">
+       <div className="bg-white p-6 rounded-xl shadow  text-center">
+        <img src={friend.picture} className="w-20 rounded-full mx-auto"/>
         <h2 className="text-2xl font-bold">{friend.name}</h2>
 
          <div className="mt-2">
@@ -66,7 +66,7 @@ const FriendDetails = () => {
       </div>
      </div>
       
-<div className="col-span-4">
+<div className="md:col-span-4 ">
 
   <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-4">
         <div
@@ -129,14 +129,36 @@ const FriendDetails = () => {
 </div>
 </div>
 
-  <div className="bg-white p-6 rounded-xl shadow">
-        <h2 className="text-xl mb-4">Quick Check-in</h2>
-        <div className="flex gap-3 mb-6 text-center text-l">
-          <button onClick={()=>addInteraction(friend.name,"Call")} className=" text-black px-10 py-3 rounded bg-gray-100"><FaPhoneAlt/>Call</button>
-          <button onClick={()=>addInteraction(friend.name,"Text")} className=" text-black px-10 py-3 rounded bg-gray-100"><RiMessage2Line/>Text</button>
-          <button onClick={()=>addInteraction(friend.name,"Video")} className=" text-black px-10 py-3 rounded bg-gray-100"><RiVideoLine/>Video</button>
-        </div>
-      </div>
+  
+
+      <div className="bg-white p-6 rounded-xl shadow">
+  <h2 className="text-xl mb-4">Quick Check-in</h2>
+
+  <div className="flex flex-wrap gap-3">
+    
+    <button
+      onClick={() => addInteraction(friend.name, "Call")}
+      className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 rounded hover:bg-gray-200 w-full sm:w-auto"
+    >
+      <FaPhoneAlt /> Call
+    </button>
+
+    <button
+      onClick={() => addInteraction(friend.name, "Text")}
+      className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 rounded hover:bg-gray-200 w-full sm:w-auto"
+    >
+      <RiMessage2Line /> Text
+    </button>
+
+    <button
+      onClick={() => addInteraction(friend.name, "Video")}
+      className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 rounded hover:bg-gray-200 w-full sm:w-auto"
+    >
+      <RiVideoLine /> Video
+    </button>
+
+  </div>
+</div>
 
       <div className="md:col-span-2 bg-white p-6 rounded-xl shadow">
 <div className="flex justify-between">

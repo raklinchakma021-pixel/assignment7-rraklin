@@ -1,6 +1,6 @@
 // src/pages/Stats.jsx
 import { useApp } from "../context/AppContext";
-import { PieChart, Pie, Cell, Tooltip } from "recharts";
+import { ResponsiveContainer,PieChart, Pie, Cell, Tooltip } from "recharts";
 import { FaDotCircle } from "react-icons/fa";
 
 const COLORS = ["#f59e0b", "#22c55e", "#ef4444"];
@@ -25,40 +25,47 @@ const Stats = () => {
         </h1>
       </div>
 
-      <div className="p-10 shadow-sm w-9/12 mx-auto">
-        <p className="text-left p-10">By Interaction Type</p>
+   
 
-        <PieChart width={400} height={400} className="mb-8 mx-auto">
-          <Pie
-            data={data}
-            dataKey="value"
-            innerRadius="80%"
-            outerRadius="100%"
-            cornerRadius="5%"
-          >
-            {data.map((entry, index) => (
-              <Cell
-                key={index}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
+      <div className="p-6 shadow-sm w-9/12 mx-auto">
 
-          <Tooltip />
-        </PieChart>
+  <p className="text-left mb-6">By Interaction Type</p>
 
-        <div className="flex justify-center gap-4">
-          <div className="flex items-center gap-2">
-            <FaDotCircle className="text-[#22c55e]" /> Text
-          </div>
-          <div className="flex items-center gap-2">
-            <FaDotCircle className="text-[#f59e0b]" /> Call
-          </div>
-          <div className="flex items-center gap-2">
-            <FaDotCircle className="text-[#ef4444]" /> Video
-          </div>
-        </div>
-      </div>
+  <div className="w-full h-[400px]">
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart>
+        <Pie
+          data={data}
+          dataKey="value"
+          innerRadius="60%"
+          outerRadius="80%"
+          cornerRadius="5%"
+        >
+          {data.map((entry, index) => (
+            <Cell key={index} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+
+        <Tooltip />
+      </PieChart>
+    </ResponsiveContainer>
+  </div>
+
+  <div className="flex justify-center gap-4 mt-4">
+    <div className="flex items-center gap-2">
+      <FaDotCircle className="text-[#22c55e]" /> Text
+    </div>
+
+    <div className="flex items-center gap-2">
+      <FaDotCircle className="text-[#f59e0b]" /> Call
+    </div>
+
+    <div className="flex items-center gap-2">
+      <FaDotCircle className="text-[#ef4444]" /> Video
+    </div>
+  </div>
+
+</div>
     </>
   );
 };
