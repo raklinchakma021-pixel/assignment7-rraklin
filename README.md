@@ -1,16 +1,37 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Project Name
 
-Currently, two official plugins are available:
+**KeenKeeper — Keep Your Friendships Alive**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 📝 Short Description
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+KeenKeeper is a responsive friendship management web app that helps users track, maintain, and strengthen their relationships. The app allows users to manage friend profiles, set contact goals, log interactions (call, text, video), and visualize relationship activity through an interactive timeline and analytics dashboard.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ⚙️ Technologies Used
+
+* **React.js** – Frontend UI development
+* **React Router DOM** – Page navigation & routing
+* **Tailwind CSS** – Styling and responsive design
+* **Recharts** – Data visualization (analytics charts)
+* **React Toastify / Toast Library** – Notifications
+* **JSON** – Local data storage for friend profiles
+
+---
+
+## ⭐ 3 Key Features
+
+### 1️⃣ Friend Relationship Tracker
+
+Users can view all friends as cards, check their contact status, and access a detailed profile page with goals, bio, tags, and next contact date.
+
+### 2️⃣ Interaction Timeline System
+
+Quick Check-In buttons (Call, Text, Video) instantly create timeline entries with the current date and show toast notifications. Users can filter timeline entries by interaction type.
+
+### 3️⃣ Friendship Analytics Dashboard
+
+An analytics page displays a Pie Chart visualizing the number of calls, texts, and video interactions to help users understand their communication habits.
