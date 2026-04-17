@@ -3,7 +3,7 @@ import DataShow from "../components/DataShow";
 import FriendCard from "../components/FriendCard";
 // import { friendsData } from "../data/friends";
 import { useApp } from "../context/AppContext";
-
+import Loading from "../components/Loading";
 
 // ---- Home ----
 const SmallHeading =() => (
@@ -14,7 +14,9 @@ const SmallHeading =() => (
 
 
 const Home = () => {
-const { friends } = useApp();
+const { friends, loading } = useApp();
+
+  if (loading) return <Loading />;
 
   return (
     <div className="p-10">
